@@ -6,6 +6,31 @@
 // The per-hold risks are re-rolled for every climb, and are split so that the
 // overall chance of falling somewhere on the way up is TOTAL_FALL_CHANCE.
 
+// Climbing videos play at 1.25x speed by default (viewers can still change it
+// from the video's own menu).
+const VIDEO_SPEED = 1.25;
+
+document.addEventListener("DOMContentLoaded", () => {
+    const videos = Array.from(document.querySelectorAll(".climb-section video"));
+
+    videos.forEach((video) => {
+        const setSpeed = () => {
+            video.defaultPlaybackRate = VIDEO_SPEED;
+            video.playbackRate = VIDEO_SPEED;
+        };
+        setSpeed();
+        // Some browsers reset the speed once the video loads, so set it again then.
+        video.addEventListener("loadedmetadata", setSpeed);
+
+        // Only one video plays at a time: starting one pauses all the others.
+        video.addEventListener("play", () => {
+            videos.forEach((other) => {
+                if (other !== video && !other.paused) other.pause();
+            });
+        });
+    });
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     const wall = document.querySelector(".climbing-wall");
     const climber = document.getElementById("climber");

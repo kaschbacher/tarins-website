@@ -381,3 +381,9 @@ body{
         gap: 5px;
     }
 }
+
+/* Climbing page videos: never wider than the content column on small screens */
+.climb-section video {
+    max-width: 100%;
+    height: auto;
+}
