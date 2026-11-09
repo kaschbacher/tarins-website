@@ -1,0 +1,8 @@
+# Extra Photos
+# thailand_photos/*
+
+# Backup, prior to github upload
+backup/*
+
+# Not needed
+.DS_Store
