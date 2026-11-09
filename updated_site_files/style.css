@@ -1,0 +1,359 @@
+:root {
+  --background: #FFFFFF;
+  --surface: #9FA7BD;
+  --primary: #37425A;
+  --accent: #FAB041;
+  --text: #02030B;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--background);
+  color: var(--text);
+}
+
+/* Header */
+
+header {
+  background: var(--primary);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  margin-top: 0.5rem;
+}
+
+/* Book Grid */
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 220px);
+  justify-content: center;
+  gap: 40px;
+
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Each Book */
+
+.book-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-title {
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  font-size: 1rem;
+  line-height: 1.2;
+
+  font-weight: bold;
+
+  color: var(--primary);
+
+  margin: 0;
+}
+
+/* Book Cover */
+
+.book-card {
+  width: 220px;
+  height: 330px;
+
+  overflow: hidden;
+
+  border-radius: 8px;
+
+  background: var(--surface);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  transition: transform 0.2s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+}
+
+.book-card img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    font-size: 0.7rem;
+}
+/* Placeholder books */
+
+.book-card:not(:has(img)) {
+  font-weight: bold;
+  color: var(--primary);
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .book-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f7f4ee;
+}
+
+.page-content{
+    width:70%;
+    padding:40px;
+}
+
+.hero{
+    margin-bottom:80px;
+}
+
+.story h2{
+    margin-top:80px;
+}
+
+.climbing-wall{
+    position:fixed;
+    right:0;
+    top:0;
+    width:220px;
+    height:100vh;
+
+    background:linear-gradient(#8b7765,#6d5b4c);
+
+    border-left:6px solid #444;
+}
+
+.hold{
+    position:absolute;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:orange;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.hold:hover{
+    transform:scale(1.15);
+}
+
+.hold:nth-child(2){
+    bottom:80px;
+    left:50px;
+}
+
+.hold:nth-child(3){
+    bottom:180px;
+    right:45px;
+}
+
+.hold:nth-child(4){
+    bottom:300px;
+    left:70px;
+}
+
+.hold:nth-child(5){
+    bottom:430px;
+    right:55px;
+}
+
+.hold:nth-child(6){
+    bottom:560px;
+    left:45px;
+}
+
+.hold:nth-child(7){
+    bottom:700px;
+    right:60px;
+}
+
+.carousel-track{
+    width:325px;
+}
+
+.slide video{
+    width:250px;
+    height:auto;
+}
+
+#climber{
+    position:absolute;
+    bottom:30px;
+    left:30px;
+    font-size:40px;
+    transition:0.5s ease;
+}
+
+#treasure{
+    position:absolute;
+    top:20px;
+    left:80px;
+    font-size:48px;
+}
+
+.report-page {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.report-page p {
+    line-height: 1.6;
+}
+
+.indent {
+    text-indent: 2em;
+}
+
+.banner {
+    width: 100%;
+    height: 200px;      /* Change this to 200px, 300px, etc. */
+    overflow: hidden;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* Crops the image instead of squishing it */
+    display: block;
+}
+.photo-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 35px 0 45px;
+    flex-wrap: wrap;
+}
+
+.photo-row figure {
+    text-align: center;
+    margin: 0;
+}
+
+.photo-row img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
+
+.photo-row img:hover {
+    transform: scale(1.05);
+}
+
+.photo-row figcaption {
+    margin-top: 10px;
+    font-weight: bold;
+    color: var(--primary);
+}
+.honors-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+
+.honors-row figure {
+    margin: 0;
+    text-align: center;
+}
+
+.honors-row img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.honors-row figcaption {
+    margin-top: 6px;
+    font-size: 0.9rem;
+}
+
+
+/* ---------- Thailand Photo Grid ---------- */
+/* Added without changing any of the original CSS above. */
+
+.thailand-grid-page {
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.thailand-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
+
+.thailand-photo-cell {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 8px;
+    background: var(--surface);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.thailand-photo-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.thailand-photo-cell.leaving {
+    opacity: 0;
+    transform: translateY(25px);
+}
+
+.thailand-message {
+    text-align: center;
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 700px) {
+    .thailand-photo-grid {
+        gap: 6px;
+    }
+}

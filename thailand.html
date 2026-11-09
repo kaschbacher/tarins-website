@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thailand</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Thailand</h1>
+        <p>Having a multicultural family from Thailand has taught me a lot about family, other cultures and religions.</p>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Me</a>
+            <a href="climbing.html">Climbing</a>
+        </nav>
+    </header>
+
+    <main class="thailand-page">
+        <h2>Photos from my adventures in Thailand</h2>
+        <div id="photo-grid" class="photo-grid"></div>
+    </main>
+
+    <script>
+        // All photos live in the thailand_photos folder.
+        const PHOTO_FOLDER = "thailand_photos/";
+        const photos = [
+            "FullSizeRender.jpg", "IMG_0104.jpg", "IMG_0118.jpg", "IMG_0121.jpg", "IMG_0124.jpg", "IMG_0127.jpg",
+            "IMG_0129.jpg", "IMG_0131.jpg", "IMG_0141.jpg", "IMG_0168.jpg", "IMG_0171.jpg", "IMG_0180.jpg",
+            "IMG_0207.jpg", "IMG_0208.jpg", "IMG_0210.jpg", "IMG_0212.jpg", "IMG_0213.jpg", "IMG_0225.jpg",
+            "IMG_0229.jpg", "IMG_0264.jpg", "IMG_0272.jpg", "IMG_0298.jpg", "IMG_0301.jpg", "IMG_0306.jpg",
+            "IMG_0308.jpg", "IMG_0316.jpg", "IMG_0321.jpg", "IMG_0327.jpg", "IMG_0373.jpg", "IMG_0380.jpg",
+            "IMG_0385.jpg", "IMG_0402.jpg", "IMG_1074.jpg", "IMG_1412.jpg", "IMG_1534.jpg", "IMG_1537.jpg",
+            "IMG_1542.jpg", "IMG_1546.jpg", "IMG_1579.jpg", "IMG_1601.jpg", "IMG_2279.jpg", "IMG_3610.jpg",
+            "IMG_3614.jpg", "IMG_4333.jpg", "IMG_4374.jpg", "IMG_4467.jpg", "IMG_4471.jpg", "IMG_4474.jpg",
+            "IMG_4483.jpg", "IMG_4506.jpg", "IMG_4515.jpg", "IMG_4520.jpg", "IMG_4531.jpg", "IMG_4533.jpg",
+            "IMG_4576.jpg", "IMG_4591.jpg", "IMG_4595.jpg", "IMG_4604.jpg", "IMG_4608.jpg", "IMG_4617.jpg",
+            "IMG_4693.jpg", "IMG_4699.jpg", "IMG_4727.jpg", "IMG_4753.jpg", "IMG_4780.jpg", "IMG_4788.jpg",
+            "IMG_4793.jpg", "IMG_4822.jpg", "IMG_5329.jpg", "IMG_9548.jpg", "IMG_9559.jpg", "IMG_9609.jpg",
+            "IMG_9620.jpg", "IMG_9625.jpg", "IMG_9632.jpg", "IMG_9665.jpg", "IMG_9667.jpg", "IMG_9668.jpg",
+            "IMG_9669.jpg", "IMG_9678.jpg", "IMG_9736.jpg", "IMG_9781.jpg", "IMG_9786.jpg", "IMG_9794.jpg",
+            "IMG_9829.jpg"
+        ];
+
+        // Grid size: COLUMNS x ROWS. Every few seconds the bottom row slides out
+        // and a fresh row of photos appears at the top.
+        const COLUMNS = 5;
+        const ROWS = 5;
+        const ROTATE_EVERY_MS = 3000;
+
+        const grid = document.getElementById("photo-grid");
+        grid.style.setProperty("--columns", COLUMNS);
+
+        // Pick a photo that isn't already on screen, so there are no duplicates.
+        function randomPhoto() {
+            const showing = new Set(
+                Array.from(grid.querySelectorAll("img")).map(img => img.dataset.file)
+            );
+            const choices = photos.filter(p => !showing.has(p));
+            const pool = choices.length > 0 ? choices : photos;
+            return pool[Math.floor(Math.random() * pool.length)];
+        }
+
+        function makePhoto(filename) {
+            const cell = document.createElement("div");
+            cell.className = "photo-cell";
+
+            const img = document.createElement("img");
+            img.src = PHOTO_FOLDER + filename;
+            img.dataset.file = filename;
+            img.alt = "Photo from Thailand";
+            img.decoding = "async";
+
+            cell.appendChild(img);
+            return cell;
+        }
+
+        function fillInitialGrid() {
+            grid.innerHTML = "";
+            for (let i = 0; i < COLUMNS * ROWS; i++) {
+                grid.appendChild(makePhoto(randomPhoto()));
+            }
+        }
+
+        function rotateGrid() {
+            const cells = Array.from(grid.children);
+            const keep = COLUMNS * (ROWS - 1);
+
+            // Fade out the bottom row.
+            cells.slice(keep).forEach(cell => cell.classList.add("leaving"));
+
+            setTimeout(() => {
+                cells.slice(keep).forEach(cell => cell.remove());
+
+                // Add a new row at the top; everything else shifts down one row.
+                const newRow = [];
+                for (let i = 0; i < COLUMNS; i++) {
+                    const cell = makePhoto(randomPhoto());
+                    cell.classList.add("entering");
+                    grid.prepend(cell);
+                    newRow.push(cell);
+                }
+
+                // Next frame: let the new row fade in.
+                requestAnimationFrame(() => requestAnimationFrame(() => {
+                    newRow.forEach(cell => cell.classList.remove("entering"));
+                }));
+            }, 450);
+        }
+
+        fillInitialGrid();
+        setInterval(rotateGrid, ROTATE_EVERY_MS);
+    </script>
+
+</body>
+
+</html>
